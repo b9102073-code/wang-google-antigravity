@@ -1,0 +1,27 @@
+# .gitignore
+
+# 系統與 IDE
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+
+# 敏感資訊與認證
+*.env
+*.env.local
+*.key
+*.pem
+credentials.json
+serviceAccountKey.json
+notebooks.json
+
+# Node & Python
+node_modules/
+__pycache__/
+*.pyc
+.venv/
+env/
+
+# 暫存與快取
+tmp/
+.cache/
