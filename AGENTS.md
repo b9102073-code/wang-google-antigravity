@@ -11,8 +11,8 @@
 
 ## Obsidian 對應筆記
 
-- Obsidian vault：待設定（如有 Obsidian vault，請填寫實體路徑）
-- 專案駕駛艙：待設定
+- Obsidian vault：`/Users/wangyongchang/Library/Mobile Documents/iCloud~md~obsidian/Documents/第二大腦 Obsidisn`
+- 專案駕駛艙：`王永昌的Google Antigravity專案/專案工作流程.md`
 
 ## 工作規則
 
