@@ -6,7 +6,7 @@
 - 專案用途：Google Antigravity 開發、學習與服務整合工作區
 - 主要工作目錄：`/Users/wangyongchang/王永昌的Google Antigravity資料夾`
 - 作業系統環境：macOS (zsh)
-- GitHub repo：待設定
+- GitHub repo：https://github.com/b9102073-code/wang-google-antigravity
 - 預設 branch：main
 
 ## Obsidian 對應筆記
