@@ -14,6 +14,10 @@
 - Obsidian vault：`/Users/wangyongchang/Library/Mobile Documents/iCloud~md~obsidian/Documents/第二大腦 Obsidisn`
 - 專案駕駛艙：`王永昌的Google Antigravity專案/專案工作流程.md`
 
+## Google Drive 對應目錄
+
+- 雲端硬碟本地路徑：`/Users/wangyongchang/Library/CloudStorage/GoogleDrive-b9102073@gmail.com/我的雲端硬碟`
+
 ## 工作規則
 
 - 回應優先使用繁體中文（台灣）。
