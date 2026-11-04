@@ -1,0 +1,12 @@
+# MIDUS 分析環境（固定版本，12/31 前不升級：分析中途換環境，數字可能
+# 出現小差異，口試與審稿時難以重現。論文與投稿完成後再另建新環境升級。）
+#
+# 原始分析環境（2026-10-11 於 ~/Documents/MIDUS/.venv 核對，Python 3.9.6）：
+#   pandas 2.3.3、numpy 2.0.2、scipy 1.13.1、statsmodels 0.14.4、pyreadstat 1.2.8
+# 以下為該環境的下限，請勿升級主版本。
+pandas>=2.3.3,<3
+numpy>=2.0.2,<3
+scipy>=1.13.1,<2
+statsmodels>=0.14.4,<1
+pyreadstat>=1.2.8,<2
+tabulate>=0.9.0          # DataFrame.to_markdown() 需要

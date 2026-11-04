@@ -25,3 +25,13 @@ env/
 # 暫存與快取
 tmp/
 .cache/
+
+# MIDUS 原始資料與受試者層級輸出（絕對不可進版本控管）
+*.sav
+*.por
+*.dta
+data/
+midus/data/
+output/
+midus/output/
+*.pkl
