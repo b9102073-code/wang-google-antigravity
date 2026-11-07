@@ -1,0 +1,205 @@
+====================================================================================================
+樣本：完整案例 N=2028／暴露=188（與 full_model.py 的 2,028／188 基準一致）
+基準主效果 β=-0.0701 SE=0.0334 p=0.0356
+
+====================================================================================================
+步驟 0：四類因素的缺失與分布（決定哪些根本沒有檢定力）
+----------------------------------------------------------------------------------------------------
+sleep_ins    睡眠：A61 失眠症狀均分(1-5)                     可用 2027 (100.0%)  mean=  2.476 sd= 0.834
+sleep_freq   睡眠：A10g 30天入睡困難頻率(反轉1-6)               可用 2015 ( 99.4%)  mean=  3.019 sd= 1.719
+sleep_chron  睡眠：A11w 自陳慢性睡眠問題(0/1)                  可用 2028 (100.0%)  mean=  0.101 sd= 0.301
+sleep_hr     睡眠：工作日睡眠時數                             可用 2016 ( 99.4%)  mean=  7.040 sd= 1.103
+sleep_short  睡眠：短睡 <6 小時(0/1)                       可用 2016 ( 99.4%)  mean=  0.092 sd= 0.289
+anx_cidi     焦慮：CIDI-SF GAD 連續(0-10)                可用 2028 (100.0%)  mean=  0.105 sd= 0.773
+anx_dx       焦慮：CIDI-SF GAD 診斷(0/1)                 可用 2028 (100.0%)  mean=  0.018 sd= 0.132
+panic        焦慮：恐慌症狀(0-6)                           可用 2028 (100.0%)  mean=  0.303 sd= 0.971
+neuro        焦慮/特質：神經質(1-4)                         可用 2019 ( 99.6%)  mean=  2.040 sd= 0.612
+anxdep_sr    焦慮：A11t 自陳焦慮或憂鬱(0/1)                   可用 2028 (100.0%)  mean=  0.181 sd= 0.385
+depre        憂鬱：CIDI-SF 憂鬱連續(0-7)【已在既有模型】           可用 2028 (100.0%)  mean=  0.591 sd= 1.705
+negaf        憂鬱：負向情緒(1-5)                           可用 2022 ( 99.7%)  mean=  1.470 sd= 0.522
+stress_idx   壓力：長期壓力指數(4項z平均)                       可用 2025 ( 99.9%)  mean=  0.002 sd= 0.680
+str_kin      壓力：家庭張力(1-4)                           可用 2021 ( 99.7%)  mean=  2.041 sd= 0.569
+str_fri      壓力：朋友張力(1-4)                           可用 2016 ( 99.4%)  mean=  1.836 sd= 0.479
+str_bill     壓力：付帳困難(反轉1-4)                         可用 2023 ( 99.8%)  mean=  1.903 sd= 0.864
+str_disc     壓力：日常歧視(9-45)                          可用 2015 ( 99.4%)  mean= 12.738 sd= 4.374
+str_spo      壓力：配偶張力(1-4，僅有伴侶者)                     可用 1582 ( 78.0%)  mean=  2.143 sd= 0.604
+str_job      壓力：工作要求(僅在職者)                          可用 1503 ( 74.1%)  mean= 14.779 sd= 3.253
+
+====================================================================================================
+步驟 1：混淆的兩個必要條件（a 路徑：便祕→因素；b 路徑：因素→認知）
+  a 路徑 = 因素在便祕組 vs 非便祕組的差（已校正年齡性別教育）
+  b 路徑 = 因素對 M3 認知的效果（已校正基線認知＋全共變項，未含便祕）
+----------------------------------------------------------------------------------------------------
+sleep_ins    a=  0.249 (+0.298 SD, p=0.0005) | b= 0.0019 (+0.002 SD/SD, p=0.8782) N=2027
+sleep_freq   a=  0.461 (+0.268 SD, p=0.0007) | b= 0.0052 (+0.009 SD/SD, p=0.3661) N=2015
+sleep_chron  a=  0.085 (+0.284 SD, p=0.0039) | b=-0.0284 (-0.009 SD/SD, p=0.4356) N=2028
+sleep_hr     a= -0.139 (-0.126 SD, p=0.1701) | b=-0.0100 (-0.011 SD/SD, p=0.2363) N=2016
+sleep_short  a=  0.057 (+0.198 SD, p=0.0349) | b= 0.0033 (+0.001 SD/SD, p=0.9237) N=2016
+anx_cidi     a=  0.029 (+0.037 SD, p=0.7030) | b=-0.0190 (-0.015 SD/SD, p=0.1720) N=2028
+anx_dx       a=  0.001 (+0.009 SD, p=0.9145) | b=-0.0949 (-0.013 SD/SD, p=0.2485) N=2028
+panic        a=  0.279 (+0.288 SD, p=0.0061) | b= 0.0068 (+0.007 SD/SD, p=0.5237) N=2028
+neuro        a=  0.146 (+0.239 SD, p=0.0009) | b=-0.0172 (-0.011 SD/SD, p=0.2882) N=2019
+anxdep_sr    a=  0.209 (+0.543 SD, p=0.0000) | b= 0.0251 (+0.010 SD/SD, p=0.3528) N=2028
+depre        a=  0.244 (+0.143 SD, p=0.1080) | b= 0.0018 (+0.003 SD/SD, p=0.7684) N=2028
+negaf        a=  0.204 (+0.391 SD, p=0.0000) | b=-0.0439 (-0.023 SD/SD, p=0.0324) N=2022
+stress_idx   a=  0.164 (+0.241 SD, p=0.0016) | b=-0.0332 (-0.023 SD/SD, p=0.0227) N=2025
+str_kin      a=  0.117 (+0.206 SD, p=0.0169) | b=-0.0145 (-0.008 SD/SD, p=0.3797) N=2021
+str_fri      a=  0.054 (+0.112 SD, p=0.1506) | b=-0.0012 (-0.001 SD/SD, p=0.9509) N=2016
+str_bill     a=  0.113 (+0.131 SD, p=0.0878) | b=-0.0287 (-0.025 SD/SD, p=0.0120) N=2023
+str_disc     a=  0.955 (+0.218 SD, p=0.0030) | b=-0.0052 (-0.023 SD/SD, p=0.0216) N=2015
+str_spo      a=  0.137 (+0.226 SD, p=0.0159) | b=-0.0180 (-0.011 SD/SD, p=0.3078) N=1582
+str_job      a=  0.575 (+0.177 SD, p=0.0811) | b= 0.0034 (+0.011 SD/SD, p=0.3044) N=1503
+
+FDR(BH) 校正後：
+  sleep_ins    a 路徑 q=0.0029 ✔ | b 路徑 q=0.9509 
+  sleep_freq   a 路徑 q=0.0032 ✔ | b 路徑 q=0.5550 
+  sleep_chron  a 路徑 q=0.0093 ✔ | b 路徑 q=0.5912 
+  sleep_hr     a 路徑 q=0.1901  | b 路徑 q=0.5550 
+  sleep_short  a 路徑 q=0.0552  | b 路徑 q=0.9509 
+  anx_cidi     a 路徑 q=0.7420  | b 路徑 q=0.5550 
+  anx_dx       a 路徑 q=0.9145  | b 路徑 q=0.5550 
+  panic        a 路徑 q=0.0129 ✔ | b 路徑 q=0.6633 
+  neuro        a 路徑 q=0.0035 ✔ | b 路徑 q=0.5550 
+  anxdep_sr    a 路徑 q=0.0000 ✔ | b 路徑 q=0.5550 
+  depre        a 路徑 q=0.1368  | b 路徑 q=0.9125 
+  negaf        a 路徑 q=0.0001 ✔ | b 路徑 q=0.1539 
+  stress_idx   a 路徑 q=0.0052 ✔ | b 路徑 q=0.1435 
+  str_kin      a 路徑 q=0.0292 ✔ | b 路徑 q=0.5550 
+  str_fri      a 路徑 q=0.1789  | b 路徑 q=0.9509 
+  str_bill     a 路徑 q=0.1192  | b 路徑 q=0.1435 
+  str_disc     a 路徑 q=0.0082 ✔ | b 路徑 q=0.1435 
+  str_spo      a 路徑 q=0.0292 ✔ | b 路徑 q=0.5550 
+  str_job      a 路徑 q=0.1185  | b 路徑 q=0.5550 
+
+====================================================================================================
+步驟 2：作為共變項加入後主效果的衰減（固定每個模型自己的完整案例樣本）
+----------------------------------------------------------------------------------------------------
+ ＋睡眠（失眠症狀均分）                             N=2027  未加 β=-0.0701 → 加入後 β=-0.0703 (p=0.0357)  衰減  -0.3%
+ ＋睡眠（整組三項）                               N=2016  未加 β=-0.0677 → 加入後 β=-0.0688 (p=0.0417)  衰減  -1.7%
+ ＋焦慮（CIDI-SF 連續）                         N=2028  未加 β=-0.0701 → 加入後 β=-0.0711 (p=0.0330)  衰減  -1.4%
+ ＋焦慮（整組：GAD＋恐慌＋神經質）                      N=2019  未加 β=-0.0750 → 加入後 β=-0.0770 (p=0.0218)  衰減  -2.6%
+ ＋憂鬱（負向情緒；depre 已在模型內）                   N=2022  未加 β=-0.0736 → 加入後 β=-0.0709 (p=0.0362)  衰減  +3.6%
+ ＋長期壓力（指數）                               N=2025  未加 β=-0.0706 → 加入後 β=-0.0693 (p=0.0395)  衰減  +1.8%
+ ＋長期壓力（四分項）                              N=1996  未加 β=-0.0682 → 加入後 β=-0.0668 (p=0.0481)  衰減  +2.1%
+ ＋四類整組同時加入                               N=2018  未加 β=-0.0740 → 加入後 β=-0.0739 (p=0.0305)  衰減  +0.1%
+
+  對照：憂鬱在既有模型中的貢獻（把 depre 從完整模型移除）
+    無 depre β=-0.0703 → 含 depre β=-0.0701（憂鬱造成的衰減 +0.2%）
+  對照：A11 慢性病計數中本來就含「焦慮憂鬱(T)」與「慢性睡眠問題(W)」→ 改用 24 題重算
+    chron27 β=-0.0701 → chron24（扣掉 T 與 W）β=-0.0709
+
+====================================================================================================
+步驟 3：中介檢定（便祕 M2 → 因素 → 認知 M3），差異法＋Bootstrap 1000 次
+----------------------------------------------------------------------------------------------------
+  (a) 同波中介（M2 因素；只能說是共變，不能說是中介）
+M2 失眠症狀                            N=2027 總效果=-0.0701 直接=-0.0703 間接=+0.0002 CI[-0.0029,+0.0034] 中介比例  -0.3%/mnt/project-files/MIDUS/scripts/sleep_anxiety_stress.py:297: UserWarning: The design matrix is poorly conditioned (condition number=6.61e+15). VIF calculations may be numerically unstable.
+  print('  %-12s VIF=%.2f'%(c,variance_inflation_factor(X.values,i)))
+/usr/local/lib/python3.13/site-packages/statsmodels/stats/outliers_influence.py:235: SingularMatrixWarning: The design matrix is rank-deficient. The model parameters are not uniquely determined.
+  r_sq = OLS(x_i, x_noti).fit().rsquared
+/usr/local/lib/python3.13/site-packages/statsmodels/stats/outliers_influence.py:235: SingularMatrixWarning: The design matrix is rank-deficient. The model parameters are not uniquely determined.
+  r_sq = OLS(x_i, x_noti).fit().rsquared
+/usr/local/lib/python3.13/site-packages/statsmodels/stats/outliers_influence.py:235: SingularMatrixWarning: The design matrix is rank-deficient. The model parameters are not uniquely determined.
+  r_sq = OLS(x_i, x_noti).fit().rsquared
+/usr/local/lib/python3.13/site-packages/statsmodels/stats/outliers_influence.py:235: SingularMatrixWarning: The design matrix is rank-deficient. The model parameters are not uniquely determined.
+  r_sq = OLS(x_i, x_noti).fit().rsquared
+/usr/local/lib/python3.13/site-packages/statsmodels/stats/outliers_influence.py:235: SingularMatrixWarning: The design matrix is rank-deficient. The model parameters are not uniquely determined.
+  r_sq = OLS(x_i, x_noti).fit().rsquared
+/usr/local/lib/python3.13/site-packages/statsmodels/stats/outliers_influence.py:235: SingularMatrixWarning: The design matrix is rank-deficient. The model parameters are not uniquely determined.
+  r_sq = OLS(x_i, x_noti).fit().rsquared
+/usr/local/lib/python3.13/site-packages/statsmodels/stats/outliers_influence.py:235: SingularMatrixWarning: The design matrix is rank-deficient. The model parameters are not uniquely determined.
+  r_sq = OLS(x_i, x_noti).fit().rsquared
+/usr/local/lib/python3.13/site-packages/statsmodels/stats/outliers_influence.py:235: SingularMatrixWarning: The design matrix is rank-deficient. The model parameters are not uniquely determined.
+  r_sq = OLS(x_i, x_noti).fit().rsquared
+/usr/local/lib/python3.13/site-packages/statsmodels/stats/outliers_influence.py:235: SingularMatrixWarning: The design matrix is rank-deficient. The model parameters are not uniquely determined.
+  r_sq = OLS(x_i, x_noti).fit().rsquared
+/usr/local/lib/python3.13/site-packages/statsmodels/stats/outliers_influence.py:235: SingularMatrixWarning: The design matrix is rank-deficient. The model parameters are not uniquely determined.
+  r_sq = OLS(x_i, x_noti).fit().rsquared
+/usr/local/lib/python3.13/site-packages/statsmodels/stats/outliers_influence.py:235: SingularMatrixWarning: The design matrix is rank-deficient. The model parameters are not uniquely determined.
+  r_sq = OLS(x_i, x_noti).fit().rsquared
+/usr/local/lib/python3.13/site-packages/statsmodels/stats/outliers_influence.py:235: SingularMatrixWarning: The design matrix is rank-deficient. The model parameters are not uniquely determined.
+  r_sq = OLS(x_i, x_noti).fit().rsquared
+
+M2 焦慮 CIDI                         N=2028 總效果=-0.0701 直接=-0.0711 間接=+0.0010 CI[-0.0019,+0.0050] 中介比例  -1.4%
+M2 負向情緒                            N=2022 總效果=-0.0736 直接=-0.0709 間接=-0.0027 CI[-0.0072,+0.0003] 中介比例  +3.6%
+M2 長期壓力指數                          N=2025 總效果=-0.0706 直接=-0.0693 間接=-0.0013 CI[-0.0059,+0.0022] 中介比例  +1.8%
+  (b) 後續波中介（M3 因素，時序正確：便祕 M2 → 因素 M3 → 認知 M3）
+M3 失眠症狀                            N=1939 總效果=-0.0743 直接=-0.0741 間接=-0.0002 CI[-0.0028,+0.0022] 中介比例  +0.3%
+M3 憂鬱                              N=2028 總效果=-0.0701 直接=-0.0668 間接=-0.0034 CI[-0.0102,+0.0007] 中介比例  +4.8%
+M3 負向情緒                            N=1928 總效果=-0.0746 直接=-0.0638 間接=-0.0108 CI[-0.0210,-0.0030] 中介比例 +14.5%
+M3 長期壓力指數                          N=1927 總效果=-0.0761 直接=-0.0750 間接=-0.0010 CI[-0.0055,+0.0020] 中介比例  +1.4%
+
+====================================================================================================
+步驟 3b：中介的第一環（便祕 M2 → M3 因素，已校正該因素的 M2 基線）
+----------------------------------------------------------------------------------------------------
+  M2便祕 → 失眠症狀      (M3)  β=-0.0918 (-0.106 SD) p=0.2756 N=1938
+  M2便祕 → 憂鬱        (M3)  β=+0.5677 (+0.342 SD) p=0.0158 N=2028
+  M2便祕 → 負向情緒      (M3)  β=+0.0353 (+0.064 SD) p=0.5351 N=1922
+  M2便祕 → 長期壓力指數    (M3)  β=+0.0832 (+0.123 SD) p=0.1895 N=1924
+  M2便祕 → 神經質       (M3)  β=-0.0134 (-0.022 SD) p=0.7994 N=1925
+  FDR q: [0.4594 0.0788 0.6689 0.4594 0.7994]
+
+====================================================================================================
+步驟 4：調節（交互作用）＋最小可偵測效果量（80% power, α=.05）
+----------------------------------------------------------------------------------------------------
+sleep_ins    交互 β= +0.0028 (每1SD +0.0023 SD) p=0.9422 q=0.972  最小可偵測 0.090 SD  N=2027 
+sleep_freq   交互 β= +0.0105 (每1SD +0.0180 SD) p=0.5871 q=0.972  最小可偵測 0.093 SD  N=2015 
+sleep_chron  交互 β= +0.0462 (每1SD +0.0139 SD) p=0.5858 q=0.972  最小可偵測 0.071 SD  N=2028 
+sleep_hr     交互 β= +0.0176 (每1SD +0.0194 SD) p=0.4541 q=0.972  最小可偵測 0.073 SD  N=2016 
+sleep_short  交互 β= +0.0411 (每1SD +0.0119 SD) p=0.6549 q=0.972  最小可偵測 0.074 SD  N=2016 
+anx_cidi     交互 β= -0.0156 (每1SD -0.0121 SD) p=0.6994 q=0.972  最小可偵測 0.088 SD  N=2028 
+anx_dx       交互 β= -0.0826 (每1SD -0.0109 SD) p=0.7344 q=0.972  最小可偵測 0.090 SD  N=2028 
+panic        交互 β= -0.0017 (每1SD -0.0017 SD) p=0.9462 q=0.972  最小可偵測 0.070 SD  N=2028 
+neuro        交互 β= +0.0583 (每1SD +0.0356 SD) p=0.2845 q=0.972  最小可偵測 0.093 SD  N=2019 
+anxdep_sr    交互 β= +0.0093 (每1SD +0.0036 SD) p=0.8889 q=0.972  最小可偵測 0.072 SD  N=2028 
+depre        交互 β= +0.0098 (每1SD +0.0167 SD) p=0.5318 q=0.972  最小可偵測 0.075 SD  N=2028 
+negaf        交互 β= +0.0417 (每1SD +0.0218 SD) p=0.5070 q=0.972  最小可偵測 0.092 SD  N=2022 
+stress_idx   交互 β= +0.0211 (每1SD +0.0144 SD) p=0.6421 q=0.972  最小可偵測 0.087 SD  N=2025 
+str_kin      交互 β= +0.0162 (每1SD +0.0092 SD) p=0.7284 q=0.972  最小可偵測 0.074 SD  N=2021 
+str_fri      交互 β= -0.0023 (每1SD -0.0011 SD) p=0.9718 q=0.972  最小可偵測 0.089 SD  N=2016 
+str_bill     交互 β= +0.0096 (每1SD +0.0083 SD) p=0.8125 q=0.972  最小可偵測 0.098 SD  N=2023 
+str_disc     交互 β= +0.0059 (每1SD +0.0256 SD) p=0.4433 q=0.972  最小可偵測 0.094 SD  N=2015 
+str_spo      交互 β= -0.0426 (每1SD -0.0257 SD) p=0.4222 q=0.972  最小可偵測 0.090 SD  N=1582 
+str_job      交互 β= +0.0281 (每1SD +0.0913 SD) p=0.0237 q=0.450  最小可偵測 0.113 SD  N=1503 
+
+  提醒：主效果本身僅 0.070 SD；上列最小可偵測交互作用若大於此值，陰性只能解讀為「偵測不到大的調節」。
+
+====================================================================================================
+步驟 5：這四類是否能解釋「反向路徑」（認知 M2 → 便祕 M3）
+----------------------------------------------------------------------------------------------------
+基準（既有共變項）                          N=2012 新發=114  認知 β=-0.1835 p=0.0051
+＋M2 失眠症狀                           N=2011 新發=114  認知 β=-0.1839 p=0.0050
+＋M2 焦慮整組                           N=2004 新發=114  認知 β=-0.1870 p=0.0047
+＋M2 負向情緒                           N=2006 新發=113  認知 β=-0.1792 p=0.0064
+＋M2 長期壓力指數                         N=1974 新發=111  認知 β=-0.1815 p=0.0061
+＋四類整組                              N=2001 新發=112  認知 β=-0.1894 p=0.0045
+
+====================================================================================================
+步驟 6：共線性（VIF）
+----------------------------------------------------------------------------------------------------
+  age          VIF=1.31
+  edu          VIF=1.09
+  bmi          VIF=1.13
+  chron27      VIF=1.60
+  depre        VIF=1.35
+  rxmed        VIF=1.51
+  sleep_ins    VIF=1.43
+  sleep_hr     VIF=1.12
+  anx_cidi     VIF=1.17
+  panic        VIF=1.12
+  neuro        VIF=1.55
+  negaf        VIF=1.94
+  stress_idx   VIF=1000799917193443.50
+  str_kin      VIF=1000799917193443.50
+  str_fri      VIF=1000799917193443.50
+  str_bill     VIF=1000799917193443.50
+  str_disc     VIF=1000799917193443.50
+
+  因素間相關矩陣（Pearson）
+            sleep_ins  anx_cidi  panic  neuro  depre  negaf  stress_idx
+sleep_ins       1.000     0.185  0.218  0.349  0.291  0.426       0.242
+anx_cidi        0.185     1.000  0.126  0.222  0.318  0.328       0.120
+panic           0.218     0.126  1.000  0.214  0.240  0.253       0.142
+neuro           0.349     0.222  0.214  1.000  0.252  0.550       0.357
+depre           0.291     0.318  0.240  0.252  1.000  0.446       0.183
+negaf           0.426     0.328  0.253  0.550  0.446  1.000       0.367
+stress_idx      0.242     0.120  0.142  0.357  0.183  0.367       1.000
